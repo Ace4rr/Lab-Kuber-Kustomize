@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: messager
+bases:
+  - ../../base
+commonLabels:
+  env: prod
+patches:
+  - patches/replicas.yaml
+  - patches/affinity.yaml
+images:
+  - name: mablinov2704/frontend
+    newTag: "1.0.0"
+  - name: mablinov2704/bff
+    newTag: "1.0.0"
+  - name: mablinov2704/user-service
+    newTag: "1.0.0"
+  - name: mablinov2704/message-service
+    newTag: "1.0.0"
