@@ -6,9 +6,16 @@
 Развернуть микросервисное приложение мессенджера в Kubernetes, настроить GitOps-деплой через Argo CD, S3 CSI хранилище и kustomize конфигурации для dev/prod окружений.
 
 ## Запуск
-1. k3d cluster create labk8smessenger
-2. kubectl apply -k k8s/overlays/dev
-3. kubectl apply -f argocd/application.yaml
+### 1. Создать кластер
+k3d cluster create labk8smessenger
+
+### 2. Применить dev окружение
+kubectl apply -k k8s/overlays/dev
+
+### 3. Установить Argo CD
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -f argocd/application.yaml
 
 ## Архитектура
 - frontend → bff → user-service/message-service → postgres
